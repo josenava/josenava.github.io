@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Jose Navarrete" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="https://josenava.github.io/img/favicon.ico">
+    <title>Avoid using root in docker containers, please user your own user :)</title>
+    <meta name="generator" content="Hugo 0.63.2" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://josenava.github.io/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-125045129-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://josenava.github.io/"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/blog/">BLOG</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="https://josenava.github.io/blog/avoid-using-root-in-docker-containers/">Avoid using root in docker containers, please user your own user :)</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          October 21, 2018
+            &nbsp;&nbsp;
+            
+            <span class="label label-success">docker</span>
+            
+            <span class="label label-success">custom user</span>
+            
+            <span class="label label-success">linux</span>
+            
+            <span class="label label-success">osx</span>
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              <p>This post is a rewritten version from the one that I posted on my old wordpress blog.</p>
+<p>Some months ago I was working on a Symfony3 project <a href="https://twitter.com/Lifeattrivago">@trivago</a> where we had a docker setup for developing in our local machines. It was working quite fast and I could just run <code>make dev</code> which was my alias for <code>docker-compose up -d</code> and have my dev environment ready for coding, however I stumbled upon on the same issue over and over again which was generating doctrine migrations inside the container like:</p>
+<pre><code>bin/console doctrine:migration:generate
+</code></pre><p>I know you have been there, it creates the migration as root user and then you go to your favourite editor and try to edit it and BAM another keyboard broken due to the frustration of changing again the permissions :), yeah here you are again <code>chown username:username file.php</code></p>
+<p>Ok Jose we already know the problem, just give me a solution please!</p>
+<p>Here comes my proposal:</p>
+<ol>
+<li>Get the user id in the command line.</li>
+<li>Include the variable in <code>docker-compose.yml</code></li>
+<li>Modify Dockerfile to get the user_id and create a user for this user_id</li>
+<li>Create a Makefile and add the command to get the user id and pass it as a variable when you run <code>docker-compose up -d</code></li>
+</ol>
+<p>As we need to choose a way (in my case that works for both OSX and Linux) to get the user id from the command line we will rely on the environment variable <code>$UID</code> so if we echo it, we will get the unix user_id:</p>
+<pre><code>$ echo $UID
+1000
+</code></pre><p>Great! we have the <code>$UID</code> now what Jose? Now we need to modify <code>docker-compose.yml</code> to mention we are going to pass a variable to get the user id to be used as well in the <code>Dockerfile</code>.</p>
+<p>Our <code>docker-compose.yml</code> should look like this:</p>
+<pre><code>version: '3'
+services:
+  web:
+    container_name: fancy-app
+    build:
+      context: .
+      args:
+        UID: $U_ID
+    ports:
+     - &quot;8000:8000&quot;
+    volumes:
+     - .:/appdata/www/app-name
+</code></pre><p>Now we add the user creation in the <code>Dockerfile</code>:</p>
+<pre><code>FROM php:7.2-fpm
+
+ARG UID
+EXPOSE $UID
+
+RUN adduser -u  ${UID} --disabled-password --gecos &quot;&quot; appuser \
+    &amp;&amp; mkdir -p /appdata/www/app-name \
+    &amp;&amp; chown -R appuser:appuser /appdata/www/app-name
+
+WORKDIR /appdata/www/app-name
+</code></pre><p>Now we have two options. Either we just go for the command line and use <code>U_ID=${UID} docker-compose up -d</code> or we go for the fancy way and create a Makefile :)</p>
+<p>If you would like to know how to use this solution on a <code>Makefile</code>, keep reading!</p>
+<p>Having a Makefile would help us in case there are more than one developer working in the project as they might have a different user_id than yours. This is how my Makefile looks like:</p>
+<pre><code>#!/bin/bash
+
+U_ID=$(shell id -u)
+
+dev:
+    U_ID=${U_ID} docker-compose up -d
+ssh-be:
+    docker exec -it --user &quot;${U_ID}&quot; fancy-app bash
+</code></pre><p>PS: I am not a Makefile expert so there might be a better solution :)</p>
+<p>And now you&rsquo;ll be able to run <code>make dev</code> and <code>make ssh-be</code> and you&rsquo;ll be using your user so you can edit the files created inside the container.</p>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://josenava.github.io/js/docs.min.js"></script>
+<script src="https://josenava.github.io/js/main.js"></script>
+
+<script src="https://josenava.github.io/js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

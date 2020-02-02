@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on Jose&#39;s Blog</title>
+    <link>https://josenava.github.io/tags/linux/</link>
+    <description>Recent content in linux on Jose&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 21 Oct 2018 20:00:34 +0200</lastBuildDate>
+    
+	<atom:link href="https://josenava.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Avoid using root in docker containers, please user your own user :)</title>
+      <link>https://josenava.github.io/blog/avoid-using-root-in-docker-containers/</link>
+      <pubDate>Sun, 21 Oct 2018 20:00:34 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/blog/avoid-using-root-in-docker-containers/</guid>
+      <description>This post is a rewritten version from the one that I posted on my old wordpress blog.
+Some months ago I was working on a Symfony3 project @trivago where we had a docker setup for developing in our local machines. It was working quite fast and I could just run make dev which was my alias for docker-compose up -d and have my dev environment ready for coding, however I stumbled upon on the same issue over and over again which was generating doctrine migrations inside the container like:</description>
+    </item>
+    
+  </channel>
+</rss>

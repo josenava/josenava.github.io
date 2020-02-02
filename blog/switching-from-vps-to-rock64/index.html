@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Jose Navarrete" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="https://josenava.github.io/img/favicon.ico">
+    <title>Switching from VPS to a rock64 server</title>
+    <meta name="generator" content="Hugo 0.63.2" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://josenava.github.io/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-125045129-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://josenava.github.io/"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/blog/">BLOG</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="https://josenava.github.io/blog/switching-from-vps-to-rock64/">Switching from VPS to a rock64 server</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          September 2, 2018
+            &nbsp;&nbsp;
+            
+            <span class="label label-success">VPS</span>
+            
+            <span class="label label-success">rock64</span>
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              <h5 id="disclaimer-i-am-not-expecting-more-than-100-concurrent-requests-so-i-believe-i-dont-need-everything-a-vps-can-offer"><em>DISCLAIMER: I am not expecting more than 100 concurrent requests, so I believe I don&rsquo;t need everything a VPS can offer.</em></h5>
+<p>I owned a VPS with <a href="https://www.ovh.com">OVH</a> which was extended yearly since 2015. As the time to renew it again was approaching this year,
+I decided to cancel my contract and stop renewing the VPS as the only usage I was giving to it was hosting a small blog with no visits which I created
+to learn a little bit about Wordpress.</p>
+<p>Here you can see the cost of renewing the VPS since 2015.</p>
+<figure>
+    <img src="/img/ovh_billing.png"
+         alt="yearly cost table"/> 
+</figure>
+
+<p>Great Jose you are going to save 30 euros this year, what now? Let&rsquo;s spend that money on a credit card sized server!!
+well, and a little bit more :D. By the time of renewing the server I owned a raspberry pi but I felt it was not going to be
+powerful enough and also would lack of ram in case I wanted to do several things at the same time, so I looked for alternatives and found
+the <a href="https://www.pine64.org/?page_id=7147">rock64</a> with 4GB of ram. This seems like a legit candidate to build my own credit card server..</p>
+<figure>
+    <img src="/img/rock64_bill.png"
+         alt="Yeah I bought the rock64!"/> 
+</figure>
+
+<p>So after spending ~$72 (~62€) + 10€ on a 32GB sdcard and 2 weeks waiting for the delivery, I got my own server!</p>
+<p>Now it is time to gets our hands <em>dirty</em> with our terminal and install an OS. I chose debian as it seemed the most stable choice, although my suggestion
+is to take a look on <a href="https://forum.pine64.org/forumdisplay.php?fid=88">the rock64 linux community</a> and pick the one that fits you the most.</p>
+<p>After installing my favourite packages it was time to start this blog from scratch (this will be the topic for another post!) and setup my domain
+to point to my ip address and enable the access to the rock64 as it is under a NAT.</p>
+<p>To configure the ip address of the domain I just used <a href="https://api.ipify.org?format=json">ipify</a> and setup manually the ip address on <a href="https://www.godaddy.com">godaddy</a>. However,
+there is an automatic way to do this with a cronjob so it will take the ip address every time the router is restarted. Maybe I&rsquo;ll blog about this one day..</p>
+<p>Comparing the prices, as currently a VPS costs 36€ a year, it might be a bit expensive as it would take me 2 years to compensate the money I paid for
+the rock64 but I just wanted to try it and see if it can work as a server. Maybe I&rsquo;ll need to use it in different ways to take advantage of its power
+and make it cheaper than a VPS :)</p>
+<p>PS: I don&rsquo;t recommend hosting a business in this kind of devices as if there is a power outage in your apartment the website will be down!!</p>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://josenava.github.io/js/docs.min.js"></script>
+<script src="https://josenava.github.io/js/main.js"></script>
+
+<script src="https://josenava.github.io/js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

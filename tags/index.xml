@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Jose&#39;s Blog</title>
+    <link>https://josenava.github.io/tags/</link>
+    <description>Recent content in Tags on Jose&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 21 Oct 2018 20:00:34 +0200</lastBuildDate>
+    
+	<atom:link href="https://josenava.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>custom user</title>
+      <link>https://josenava.github.io/tags/custom-user/</link>
+      <pubDate>Sun, 21 Oct 2018 20:00:34 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/tags/custom-user/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://josenava.github.io/tags/docker/</link>
+      <pubDate>Sun, 21 Oct 2018 20:00:34 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://josenava.github.io/tags/linux/</link>
+      <pubDate>Sun, 21 Oct 2018 20:00:34 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>osx</title>
+      <link>https://josenava.github.io/tags/osx/</link>
+      <pubDate>Sun, 21 Oct 2018 20:00:34 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/tags/osx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rock64</title>
+      <link>https://josenava.github.io/tags/rock64/</link>
+      <pubDate>Sun, 02 Sep 2018 17:04:38 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/tags/rock64/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VPS</title>
+      <link>https://josenava.github.io/tags/vps/</link>
+      <pubDate>Sun, 02 Sep 2018 17:04:38 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/tags/vps/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

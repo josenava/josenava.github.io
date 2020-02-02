@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Jose&#39;s Blog</title>
+    <link>https://josenava.github.io/blog/</link>
+    <description>Recent content in Blogs on Jose&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 21 Oct 2018 20:00:34 +0200</lastBuildDate>
+    
+	<atom:link href="https://josenava.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Avoid using root in docker containers, please user your own user :)</title>
+      <link>https://josenava.github.io/blog/avoid-using-root-in-docker-containers/</link>
+      <pubDate>Sun, 21 Oct 2018 20:00:34 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/blog/avoid-using-root-in-docker-containers/</guid>
+      <description>This post is a rewritten version from the one that I posted on my old wordpress blog.
+Some months ago I was working on a Symfony3 project @trivago where we had a docker setup for developing in our local machines. It was working quite fast and I could just run make dev which was my alias for docker-compose up -d and have my dev environment ready for coding, however I stumbled upon on the same issue over and over again which was generating doctrine migrations inside the container like:</description>
+    </item>
+    
+    <item>
+      <title>Switching from VPS to a rock64 server</title>
+      <link>https://josenava.github.io/blog/switching-from-vps-to-rock64/</link>
+      <pubDate>Sun, 02 Sep 2018 17:04:38 +0200</pubDate>
+      
+      <guid>https://josenava.github.io/blog/switching-from-vps-to-rock64/</guid>
+      <description>DISCLAIMER: I am not expecting more than 100 concurrent requests, so I believe I don&amp;rsquo;t need everything a VPS can offer. I owned a VPS with OVH which was extended yearly since 2015. As the time to renew it again was approaching this year, I decided to cancel my contract and stop renewing the VPS as the only usage I was giving to it was hosting a small blog with no visits which I created to learn a little bit about Wordpress.</description>
+    </item>
+    
+  </channel>
+</rss>
