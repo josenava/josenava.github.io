@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Avoid using root in docker containers, please user your own user :)</title>
+      <title>Avoid using root in docker containers, please use your own user :)</title>
       <link>https://josenava.github.io/blog/avoid-using-root-in-docker-containers/</link>
       <pubDate>Sun, 21 Oct 2018 20:00:34 +0200</pubDate>
       
